@@ -11,14 +11,14 @@ const router = express.Router();
 
 const validateLogin = [
     check('credential')
-      .exists({ checkFalsy: true })
-      .notEmpty()
-      .withMessage('Please provide a valid email or username.'),
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('Please provide a valid email or username.'),
     check('password')
-      .exists({ checkFalsy: true })
-      .withMessage('Please provide a password.'),
+        .exists({ checkFalsy: true })
+        .withMessage('Please provide a password.'),
     handleValidationErrors
-  ];
+];
 
 // Log in
 router.post(
@@ -48,6 +48,8 @@ router.post(
             id: user.id,
             email: user.email,
             username: user.username,
+            firstName: user.firstName,
+            lastName: user.lastName
         };
 
         await setTokenCookie(res, safeUser);
@@ -68,6 +70,8 @@ router.get(
                 id: user.id,
                 email: user.email,
                 username: user.username,
+                firstName: user.firstName,
+                lastName: user.lastName
             };
             return res.json({
                 user: safeUser
